@@ -11,10 +11,11 @@ function match(a, b) {
   }
   return i - 1;
 }
-function Game() {
+function Game(props) {
   const [name, setName] = useState("Hell3ringer");
   const [level, setLevel] = useState("easy");
   const score = useScore(0);
+  const [scores, setScores] = [props.scores , props.setScores];
   const [text, setText] = useState("");
   const [wordStart, setWordStart] = useState("");
   const [wordEnd, setWordEnd] = useState("");
@@ -45,6 +46,17 @@ function Game() {
 
   useEffect(() => {
     // this.props.gameover = gameover;
+    if(gameover === true){
+
+      setScores([
+        ...scores,
+        {
+          gameNo: scores.length + 1,
+          score: score,
+        },
+      ]);
+      props.setScreen("result");
+    }
   }, [gameover]);
 
   useEffect(() => {
@@ -69,12 +81,14 @@ function Game() {
     <div className="game">
       <div className="game_nav">
         <div>
-          <h1>{name}</h1>
-          <h1>{level}</h1>
+          <h1>{name.toUpperCase()}</h1>
+          <h1>LEVEL : {level.toUpperCase()}</h1>
         </div>
         <div>
-          <h1>Fast Fingers</h1>
-          <h1>{score}</h1>
+          <h1>Fast FINGERS</h1>
+          <h1>
+            SCORE - {Math.floor(score / 60)}:{score % 60}
+          </h1>
         </div>
       </div>
       <div className="game_play">
@@ -99,6 +113,7 @@ function Game() {
       <button className="game_btn" onClick={() => setGameover(true)}>
         Stop Game
       </button>
+      <button onClick={() => console.log("scores" , scores)}>log</button>
     </div>
   );
 }

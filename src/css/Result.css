@@ -1,0 +1,15 @@
+.result{
+    display: flex;
+    height: 100vh;
+    flex-direction: column;
+    color: var(--text-color);
+}
+
+
+.scoreboard{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+}
+

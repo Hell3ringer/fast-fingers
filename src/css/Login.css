@@ -51,7 +51,7 @@
     background-color: blue;
 }
 
-.login button{
+.play_btn{
     background-color: var(--bg-color);
     border: 0;
     font-size: 4vw;

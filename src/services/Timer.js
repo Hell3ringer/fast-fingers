@@ -7,7 +7,7 @@ function useScore(props) {
     const interval = setInterval(() => {
       setTime((time) => time + 1);
     }, 1000);
-    if (time > 10) clearInterval(interval);
+    // if (time > 10) clearInterval(interval);
     return () => clearInterval(interval);
   }, [time]);
 
@@ -37,7 +37,7 @@ function useTimer(props) {
   }, []);
 
   useEffect(() => {
-    setFactor((factor) => factor + 0.1);
+    setFactor((factor) => factor + 0.1); // change to original factior 0.01!!!!
     if (factor >= 1 && factor < 1.5) {
       setLevel((level) => "easy");
     } else if (factor >= 1.5 && factor < 2) {

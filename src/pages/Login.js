@@ -44,7 +44,7 @@ function Login() {
         </select>
         <span id="login_error">{errorText}</span>
       </div>
-      <button onClick={() => handleSubmit()}>Start Game</button>
+      <button className="play_btn" onClick={() => handleSubmit()}>Start Game</button>
     </div>
   );
 }
