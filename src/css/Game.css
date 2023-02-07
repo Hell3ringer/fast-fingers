@@ -17,16 +17,35 @@
 .game_play {
   display: flex;
   margin-left: 3%;
+  flex: 1;
 }
+
+.game_scoreboard {
+  border: 1px solid var(--text-color);
+  border-radius: 5px;
+  padding: 1%;
+  font-size: 1vw;
+}
+
+/* 
 
 .game_play_div {
   display: flex;
   font-size: 3vw;
   flex-direction: column;
-  /* justify-content: center; */
-  align-items: center;
   justify-content: center;
-
+  align-items:flex-end;
+  text-align: center;
+  justify-content: space-around;
+  
+  flex: 1;
+} */
+.game_play_area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 2vw;
+  justify-content: center;
   flex: 1;
 }
 .game_time {
@@ -55,7 +74,6 @@
   /* margin: 0 0 5% 0; */
 }
 
-
 .game_btn {
   display: flex;
   align-items: flex-start;
@@ -66,4 +84,22 @@
   color: var(--text-color);
   cursor: pointer;
   font-size: 2vw;
+}
+
+@media screen and (max-width: 600px) {
+  .game_scoreboard {
+    height: 50%;
+    margin-top: 40%;
+    font-size: 2vw;
+  }
+  .game_nav h1 {
+    font-size: 3vw;
+  }
+
+  .game_btn {
+    font-size: 3vw;
+  }
+  .game_input{
+    border-radius:  5px;
+  }
 }

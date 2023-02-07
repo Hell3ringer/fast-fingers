@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import "../css/Login.css";
 
-function Login() {
-  const [level, setLevel] = useState("");
-  const [name, setName] = useState("");
+function Login(props) {
+  const {level, setLevel} = props;
+  const {name, setName} = props
   const [errorText, setErrorText] = useState("");
 
   function handleSubmit() {
@@ -15,9 +15,9 @@ function Login() {
       setErrorText("|x|   Please Enter Level");
     } else {
       setErrorText("");
+      setName(name);
+      props.setScreen("game");
     }
-    console.log("name", name);
-    console.log("level", level);
   }
 
   return (
@@ -29,6 +29,8 @@ function Login() {
           placeholder="TYPE YOUR NAME"
           value={name.toUpperCase()}
           onChange={(event) => setName(event.target.value)}
+          spellCheck="false"
+          autoComplete="off"
         ></input>
         {/* <span id="login_error">{errorText}</span> */}
         <select
@@ -44,7 +46,9 @@ function Login() {
         </select>
         <span id="login_error">{errorText}</span>
       </div>
-      <button className="play_btn" onClick={() => handleSubmit()}>Start Game</button>
+      <button className="play_btn" onClick={() => handleSubmit()}>
+        Start Game
+      </button>
     </div>
   );
 }

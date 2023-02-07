@@ -14,10 +14,13 @@ function useScore(props) {
   return time;
 }
 
+
+
 function useTimer(props) {
   const [time, setTime] = useState(0);
   const [factor, setFactor] = useState(0);
   const setLevel = props.setLevel;
+  const [initFlag , setInitFlag] = useState(false);
   useEffect(() => {
     switch (props.level) {
       case "easy":
@@ -34,26 +37,29 @@ function useTimer(props) {
       default:
         break;
     }
-  }, []);
+    setInitFlag(true);
+  }, [props.level]);
 
   useEffect(() => {
-    setFactor((factor) => factor + 0.1); // change to original factior 0.01!!!!
-    if (factor >= 1 && factor < 1.5) {
-      setLevel((level) => "easy");
-    } else if (factor >= 1.5 && factor < 2) {
-      setLevel((level) => "medium");
-    } else {
-      setLevel((level) => "hard");
+    if(initFlag){
+      setFactor((factor) => factor + 0.1); // change to original factior 0.01!!!!
+      if (factor >= 1 && factor < 1.5) {
+        setLevel((level) => "easy");
+      } else if (factor >= 1.5 && factor < 2) {
+        setLevel((level) => "medium");
+      } else {
+        setLevel((level) => "hard");
+      }
+      let time = Math.ceil(props.word.length / factor);
+      if (time < 2) time = 2;
+      // console.log("length", props.word.length);
+      // console.log("factor", factor);
+      // console.log("time", time);
+      // console.log("level", props.level);
+      // console.log('word', props.word)
+      setTime(() => time);
     }
-    let time = Math.ceil(props.word.length / factor);
-    if (time < 2) time = 2;
-    // console.log("length", props.word.length);
-    // console.log("factor", factor);
-    // console.log("time", time);
-    // console.log("level", props.level);
-    // console.log('word', props.word)
-    setTime(() => time);
-  }, [props.word]);
+  }, [initFlag , props.word]);
 
 
   useEffect(() => {

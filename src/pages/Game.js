@@ -1,7 +1,7 @@
-import React, { useEffect, useState, useReducer } from "react";
+import React, { useEffect, useState } from "react";
 import "../css/Game.css";
 import useWord from "../services/Dictonary";
-import { useScore, useTimer, useLevel } from "../services/Timer";
+import { useScore, useTimer } from "../services/Timer";
 
 function match(a, b) {
   //a.length <= b.length
@@ -12,10 +12,10 @@ function match(a, b) {
   return i - 1;
 }
 function Game(props) {
-  const [name, setName] = useState("Hell3ringer");
-  const [level, setLevel] = useState("easy");
+  const {name, setName} = props;
+  const {level, setLevel} = props
   const score = useScore(0);
-  const [scores, setScores] = [props.scores , props.setScores];
+  const {scores, setScores} = props
   const [text, setText] = useState("");
   const [wordStart, setWordStart] = useState("");
   const [wordEnd, setWordEnd] = useState("");
@@ -46,8 +46,7 @@ function Game(props) {
 
   useEffect(() => {
     // this.props.gameover = gameover;
-    if(gameover === true){
-
+    if (gameover === true) {
       setScores([
         ...scores,
         {
@@ -61,7 +60,7 @@ function Game(props) {
 
   useEffect(() => {
     if (time === 0 && word !== "") {
-      console.log("time is zero");
+      // console.log("time is zero");
       setGameover((gameover) => true);
     }
   }, [time]);
@@ -85,15 +84,26 @@ function Game(props) {
           <h1>LEVEL : {level.toUpperCase()}</h1>
         </div>
         <div>
-          <h1>Fast FINGERS</h1>
+          <h1>FAST FINGERS</h1>
           <h1>
             SCORE - {Math.floor(score / 60)}:{score % 60}
           </h1>
         </div>
       </div>
       <div className="game_play">
-        <div>Score Board</div>
-        <div className="game_play_div">
+        {
+          <div className="game_scoreboard">
+            <h1>Scoreboard</h1>
+            {scores.map((score) => {
+              return (
+                <h2 key={score.gameNo}>
+                  Game {score.gameNo} : {Math.floor(score.score/60)}:{score.score%60}
+                </h2>
+              );
+            })}
+          </div>
+        }
+        <div className="game_play_area">
           <h1 className="game_time">{time}</h1>
           <div className="game_word">
             <h1>{wordStart}</h1>
@@ -107,13 +117,14 @@ function Game(props) {
             value={text}
             onChange={(e) => setText(e.target.value.toUpperCase())}
             autoFocus={true}
+            autoComplete="off"
+            spellCheck="false"
           ></input>
         </div>
       </div>
       <button className="game_btn" onClick={() => setGameover(true)}>
         Stop Game
       </button>
-      <button onClick={() => console.log("scores" , scores)}>log</button>
     </div>
   );
 }
