@@ -22,7 +22,7 @@ function Login(props) {
 
   return (
     <div className="login">
-      <h1>Fast Fingers</h1>
+      <h1>FAST FINGERS</h1>
       <div className="login-form">
         <input
           type="text"

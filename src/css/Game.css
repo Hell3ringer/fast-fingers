@@ -11,7 +11,7 @@
   margin: 3% 3% 0 3%;
 }
 .game_nav h1 {
-  font-size: 2vw;
+  font-size: 1vw;
 }
 
 .game_play {
@@ -64,7 +64,7 @@
 .game_input {
   /* height: 50%; */
 
-  font-size: 4vw;
+  font-size: 3vw;
   text-transform: uppercase;
   text-align: center;
   background-color: var(--bg-color);
@@ -83,7 +83,7 @@
   background-color: var(--bg-color);
   color: var(--text-color);
   cursor: pointer;
-  font-size: 2vw;
+  font-size: 1vw;
 }
 
 @media screen and (max-width: 600px) {

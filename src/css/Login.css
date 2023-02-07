@@ -10,7 +10,7 @@
 .login h1{
     padding-top: 5%;
     color: var(--text-color);
-    font-size: 4vw;
+    font-size: 2vw;
 }
 
 .login-form{
@@ -24,7 +24,7 @@
 }
 .login-form input{
     /* height: 50%; */
-    font-size: 4vw;
+    font-size: 2vw;
     background-color: var(--bg-color);
     color: var(--text-color);
     border: 0;
@@ -38,7 +38,7 @@
 }
 .login-form select{
     /* height: 50%; */
-    font-size: 4vw;
+    font-size: 2vw;
     background-color: var(--bg-color);
     color: var(--text-color);
     border: 0;
@@ -54,7 +54,7 @@
 .play_btn{
     background-color: var(--bg-color);
     border: 0;
-    font-size: 4vw;
+    font-size: 2vw;
     cursor: pointer;
     margin-bottom: 5%;
     color: var(--text-color);
