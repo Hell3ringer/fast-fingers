@@ -41,7 +41,7 @@ function Login(props) {
           </option>
           <option value="easy">EASY</option>
           <option value="medium">MEDIUM</option>
-          <option vlaue="hard">HARD</option>
+          <option value="hard">HARD</option>
         </select>
         <span id="login_error">{errorText}</span>
       </div>

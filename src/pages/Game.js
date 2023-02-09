@@ -20,8 +20,8 @@ function Game(props) {
   const [word, setWord] = useState("");
   const time = useTimer({ word, level, setLevel }, -1);
 
-  let initFlag = true;
   useEffect(() => {
+    let initFlag = true;
     if (initFlag) {
       initFlag = false;
       const word = generateWord(level);
@@ -67,7 +67,7 @@ function Game(props) {
     }
   };
 
-  const won = (word) => {
+  const won = () => {
     console.log("won");
     // change factor
 
@@ -86,7 +86,7 @@ function Game(props) {
 
   const handleWordStartChange = (wordStart, word) => {
     if (word && wordStart === word) {
-      won(word);
+      won();
     }
   };
 

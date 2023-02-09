@@ -28,8 +28,8 @@ function useTimer(props) {
     // return time;
   };
 
-  let initFlag = true;
   useEffect(() => {
+    let initFlag = true;
     if (initFlag) {
       initFlag = false;
       let factor = 1;
@@ -52,15 +52,6 @@ function useTimer(props) {
       calculateTime(word, factor);
     }
   }, []);
-  
-  useEffect(() => {
-    if (word && factor) {
-      // changeFactor(factor);
-
-      calculateTime(word, factor);
-    }
-  }, [word]);
-
   useEffect(() => {
     const interval = setInterval(() => {
       setTime((time) => time - 1);
@@ -71,6 +62,14 @@ function useTimer(props) {
     }, 1000);
     return () => clearInterval(interval);
   }, [time]);
+
+  useEffect(() => {
+    if (word && factor) {
+      // changeFactor(factor);
+
+      calculateTime(word, factor);
+    }
+  }, [word]);
 
   const changeFactor = (factor) => {
     setFactor(() => factor + 0.1); // change to original factior by 0.1
