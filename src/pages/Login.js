@@ -2,16 +2,15 @@ import React, { useState } from "react";
 import "../css/Login.css";
 
 function Login(props) {
-  const {level, setLevel} = props;
-  const {name, setName} = props
+  const { level, setLevel, name, setName } = props;
   const [errorText, setErrorText] = useState("");
 
   function handleSubmit() {
-    if (name === "" && level === "") {
+    if (!name && !level) {
       setErrorText("|x|   Please Enter Name and Level");
-    } else if (name === "") {
+    } else if (!name) {
       setErrorText("|x|   Please Enter Name");
-    } else if (level === "") {
+    } else if (!level) {
       setErrorText("|x|   Please Enter Level");
     } else {
       setErrorText("");

@@ -1,30 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React  from "react";
 import "../css/Result.css";
 
 function Result(props) {
-  const {name, setName} = props
-  const {level, setLevel} = props
-  const {scores , setScores} = props;
-  const {setScreen} = props;
-  const [highscore, setHighscore] = useState(0);
-  //   const score = useScore(0);
+  const { name, setName, level, setLevel, scores, setScores, setScreen } =
+    props;
 
-  useEffect(() => {
-    scores.forEach((score , index) => {
-      if (score.score > highscore) {
+  let highscore = 0;
+  scores.forEach((score) => {
+    if (score.score > highscore) highscore = score.score;
+  });
 
-        setHighscore(() => score.score);
-
-    }
-    });
-  }, [highscore]);
-
-function handleQuit(){
-  setName("");
-  setLevel("");
-  setScores([]);
-  setScreen("login")
-}
+  function handleQuit() {
+    setName("");
+    setLevel("");
+    setScores([]);
+    setScreen("login");
+  }
 
   return (
     <div className="result">
@@ -51,7 +42,9 @@ function handleQuit(){
           Play Again
         </button>
       </div>
-      <button className="game_btn" onClick={() => handleQuit()}>Quit</button>
+      <button className="game_btn" onClick={() => handleQuit()}>
+        Quit
+      </button>
     </div>
   );
 }

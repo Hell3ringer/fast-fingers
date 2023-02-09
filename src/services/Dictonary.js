@@ -1,10 +1,9 @@
-import { useEffect, useState } from "react";
 
-function random(min, max) {
-  return Math.floor(Math.random() * max - min + 1);
-}
+const generateWord = (level) => {
+  function random(min, max) {
+    return Math.floor(Math.random() * (max - min + 1));
+  }
 
-export default function useWord(params) {
   const dictonaryEasy = [
     "GOOD",
     "NICE",
@@ -104,30 +103,26 @@ export default function useWord(params) {
     "Quantizer",
     "Quickfire",
   ];
-  const [word, setWord] = useState("");
-  useEffect(() => {
-    switch (params.level) {
-      case "easy":
-        // console.log("d", random(0, 4));
-        setWord(dictonaryEasy[random(0, dictonaryEasy.length - 1)]);
-        break;
 
-      case "medium":
-        setWord(dictonaryMedium[random(0, dictonaryMedium.length - 1)]);
-        break;
+  let word = "";
+  switch (level) {
+    case "easy":
+      word = dictonaryEasy[random(0, dictonaryEasy.length - 1)];
+      break;
 
-      case "hard":
-        setWord(dictonaryHard[random(0, dictonaryHard.length - 1)]);
-        break;
-      default:
-        setWord("No LEVEL");
-        break;
-    }
-    //   console.log("word", word);
+    case "medium":
+      word = dictonaryMedium[random(0, dictonaryMedium.length - 1)];
+      break;
 
-    //   return () => word.toUpperCase();
-  }, [params.level, params.wonCount]);
+    case "hard":
+      word = dictonaryHard[random(0, dictonaryHard.length - 1)];
+      break;
+    default:
+      word = "No LEVEL";
+      break;
+  }
   return word.toUpperCase();
-}
+};
 
-// export  {dictonaryEasy , dictonaryMedium , dictonaryHard}
+
+export default generateWord;

@@ -27,7 +27,6 @@ function Dashboard() {
           scores={scores}
           setScores={setScores}
           name={name}
-          setName={setName}
           level={level}
           setLevel={setLevel}
         ></Game>

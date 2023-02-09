@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import "../css/Game.css";
-import useWord from "../services/Dictonary";
+import generateWord from "../services/Dictonary";
 import { useScore, useTimer } from "../services/Timer";
 
 function match(a, b) {
   //a.length <= b.length
+
   var i = 0;
   for (; i < a.length; i++) {
     if (a[i] !== b[i]) return i - 1;
@@ -12,70 +13,84 @@ function match(a, b) {
   return i - 1;
 }
 function Game(props) {
-  const {name, setName} = props;
-  const {level, setLevel} = props
+  const { name, level, setLevel, setScreen, scores, setScores } = props;
   const score = useScore(0);
-  const {scores, setScores} = props
-  const [text, setText] = useState("");
   const [wordStart, setWordStart] = useState("");
   const [wordEnd, setWordEnd] = useState("");
-  const [wonCount, setWonCount] = useState(0);
-  const word = useWord({ level, wonCount });
-  const time = useTimer({ word, wonCount, level, setLevel }, -1);
-  const [gameover, setGameover] = useState(false);
+  const [word, setWord] = useState("");
+  const time = useTimer({ word, level, setLevel }, -1);
 
+  let initFlag = true;
   useEffect(() => {
-    setWordStart("");
-    setWordEnd(word);
-    // console.log("new Word ..");
-    // set timer
-  }, [wonCount, word]);
-
-  useEffect(() => {
-    let match1, match2, index;
-    if (text.length < word.length) {
-      index = match(text, word);
-    } else {
-      index = match(word, text);
+    if (initFlag) {
+      initFlag = false;
+      const word = generateWord(level);
+      setWord(word);
+      setWordStart("");
+      setWordEnd(word);
     }
-    match1 = word.substring(0, index + 1);
-    match2 = word.substring(index + 1, word.length + 1);
-    setWordStart(match1);
-    setWordEnd(match2);
-  }, [text]);
+  }, []);
 
   useEffect(() => {
-    // this.props.gameover = gameover;
-    if (gameover === true) {
-      setScores([
-        ...scores,
-        {
-          gameNo: scores.length + 1,
-          score: score,
-        },
-      ]);
-      props.setScreen("result");
-    }
-  }, [gameover]);
-
-  useEffect(() => {
-    if (time === 0 && word !== "") {
-      // console.log("time is zero");
-      setGameover((gameover) => true);
+    if (!time) {
+      gameover();
     }
   }, [time]);
 
-  useEffect(() => {
-    if (word !== "" && wordStart === word) {
-      console.log("won");
+  const gameover = () => {
+    setScores([
+      ...scores,
+      {
+        gameNo: scores.length + 1,
+        score: score,
+      },
+    ]);
 
-      // get word
-      setText("");
-      setWonCount((wonCount) => wonCount + 1);
+    setScreen("result");
+  };
+
+  const handleTextChange = (event) => {
+    if (event) {
+      const text = event.target.value.toUpperCase();
+      let match1, match2, index;
+      if (text.length < word.length) {
+        index = match(text, word);
+      } else {
+        index = match(word, text);
+      }
+      match1 = word.substring(0, index + 1);
+      match2 = word.substring(index + 1, word.length + 1);
+      setWordStart(() => match1);
+      setWordEnd(() => match2);
+
+      handleWordStartChange(match1, word);
     }
-  }, [wordStart]);
+  };
 
-  // changeColor();
+  const won = (word) => {
+    console.log("won");
+    // change factor
+
+    // change level
+
+    // generate word
+    const newWord = generateWord(level);
+    setWord(newWord);
+    document.getElementById("game_input").value = "";
+
+    setWordStart("");
+    setWordEnd(newWord);
+
+    //get timer
+  };
+
+  const handleWordStartChange = (wordStart, word) => {
+    if (word && wordStart === word) {
+      won(word);
+    }
+  };
+
+
   return (
     <div className="game">
       <div className="game_nav">
@@ -97,7 +112,8 @@ function Game(props) {
             {scores.map((score) => {
               return (
                 <h2 key={score.gameNo}>
-                  Game {score.gameNo} : {Math.floor(score.score/60)}:{score.score%60}
+                  Game {score.gameNo} : {Math.floor(score.score / 60)}:
+                  {score.score % 60}
                 </h2>
               );
             })}
@@ -114,15 +130,14 @@ function Game(props) {
             id="game_input"
             className="game_input"
             type="text"
-            value={text}
-            onChange={(e) => setText(e.target.value.toUpperCase())}
+            onChange={handleTextChange}
             autoFocus={true}
             autoComplete="off"
             spellCheck="false"
           ></input>
         </div>
       </div>
-      <button className="game_btn" onClick={() => setGameover(true)}>
+      <button className="game_btn" onClick={() => gameover()}>
         Stop Game
       </button>
     </div>
