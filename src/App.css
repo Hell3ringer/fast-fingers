@@ -1,17 +1,22 @@
-:root{
-  --bg-color : #EAFFD0;
-  --text-color : #F38181;
+:root {
+  --bg-color1: #eaffd0;
+  --bg-color: white;
+  --text-color1: #60c689;
+  --text-color2: #f38181;
+  --text-color: #57acdc;
+  --text-fam: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
 }
-
 
 .App {
   margin: 0 0 0 0;
   background-color: var(--bg-color);
   height: 100vh;
   width: 100%;
-
-  
 }
 
-
-
+* {
+  color: var(--text-color);
+  background-color: var(--bg-color);
+  font-family: var(--text-fam);
+}

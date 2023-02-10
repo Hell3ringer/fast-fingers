@@ -15,76 +15,46 @@ function useScore(props) {
 }
 
 function useTimer(props) {
-  const [time, setTime] = useState(1);
-  const [factor, setFactor] = useState(0);
-  const { word, setLevel } = props;
+  const [timer, setTime] = useState(-1);
+  // const [factor, setFactor] = useState(0);
+  const { word, setLevel, factor } = props;
 
   const calculateTime = (word, factor) => {
-    let time = Math.ceil(word.length / factor);
-    if (time < 2) time = 2;
+    if(word && factor){
 
-    setTime(time);
+      console.log('factor Timer', factor)
+      let timer = Math.ceil(word.length / factor);
+      if (timer < 2) timer = 2;
+      
+      // setTime(timer);
+      
+      return timer;
+    }
 
-    // return time;
+    // return timer;
   };
 
   useEffect(() => {
-    let initFlag = true;
-    if (initFlag) {
-      initFlag = false;
-      let factor = 1;
-      switch (props.level) {
-        case "easy":
-          factor = 1;
-          break;
-        case "medium":
-          factor = 1.5;
-          break;
-        case "hard":
-          factor = 2;
-
-          break;
-
-        default:
-          break;
-      }
-      setFactor(() => factor);
-      calculateTime(word, factor);
-    }
-  }, []);
-  useEffect(() => {
     const interval = setInterval(() => {
-      setTime((time) => time - 1);
-      if (time <= 0) {
+
+      setTime((timer) => timer - 1);
+      if (timer <= 0) {
         setTime(() => 0);
         clearInterval(interval);
       }
     }, 1000);
     return () => clearInterval(interval);
-  }, [time]);
+  }, [timer]);
 
   useEffect(() => {
-    if (word && factor) {
-      // changeFactor(factor);
-
-      calculateTime(word, factor);
+    if (word) {
+      setTime(calculateTime(word, factor));
     }
   }, [word]);
 
-  const changeFactor = (factor) => {
-    setFactor(() => factor + 0.1); // change to original factior by 0.1
 
-    // change level
-    if (factor >= 1 && factor < 1.5) {
-      setLevel((level) => "easy");
-    } else if (factor >= 1.5 && factor < 2) {
-      setLevel((level) => "medium");
-    } else {
-      setLevel((level) => "hard");
-    }
-  };
 
-  return time;
+  return timer;
 }
 
 export { useScore, useTimer };

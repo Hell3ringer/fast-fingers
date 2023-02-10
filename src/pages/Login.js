@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import "../css/Login.css";
+import useEventhandler from "../services/EventHandler";
 
 function Login(props) {
-  const { level, setLevel, name, setName } = props;
+  const { level, setLevel, name, setName,initLevel } = props;
   const [errorText, setErrorText] = useState("");
 
   function handleSubmit() {
@@ -15,19 +16,28 @@ function Login(props) {
     } else {
       setErrorText("");
       setName(name);
+      initLevel.current = level;
       props.setScreen("game");
     }
   }
+  // const handler = useCallback(() => {
+  //   console.log("focoused");
+  // });
+
+
+  // useEventhandler("key", handler);
 
   return (
     <div className="login">
       <h1>FAST FINGERS</h1>
       <div className="login-form">
         <input
+          id="login_name"
           type="text"
           placeholder="TYPE YOUR NAME"
           value={name.toUpperCase()}
           onChange={(event) => setName(event.target.value)}
+          // onFocus={handleFocus}
           spellCheck="false"
           autoComplete="off"
         ></input>

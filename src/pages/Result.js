@@ -4,7 +4,7 @@ import "../css/Result.css";
 function Result(props) {
   const { name, setName, level, setLevel, scores, setScores, setScreen } =
     props;
-
+  
   let highscore = 0;
   scores.forEach((score) => {
     if (score.score > highscore) highscore = score.score;

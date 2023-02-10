@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 
 import Game from "./Game";
 import Login from "./Login";
@@ -9,6 +9,7 @@ function Dashboard() {
   const [scores, setScores] = useState([]);
   const [name, setName] = useState("");
   const [level, setLevel] = useState("");
+const initLevel = useRef("");
   return (
     <div className="dashboard">
       {screen === "login" && (
@@ -18,6 +19,7 @@ function Dashboard() {
           setName={setName}
           level={level}
           setLevel={setLevel}
+          initLevel={initLevel}
         ></Login>
       )}
 
@@ -29,13 +31,14 @@ function Dashboard() {
           name={name}
           level={level}
           setLevel={setLevel}
+          initLevel={initLevel}
         ></Game>
       )}
       {screen === "result" && (
         <Result
           setScreen={setScreen}
           scores={scores}
-          setScores = {setScores}
+          setScores={setScores}
           name={name}
           setName={setName}
           level={level}

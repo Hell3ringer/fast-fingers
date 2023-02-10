@@ -54,6 +54,7 @@
 }
 .game_word {
   display: flex;
+  font-family: var(--text-fam);
   /* flex-direction: column; */
 }
 
@@ -88,7 +89,7 @@
 
 @media screen and (max-width: 600px) {
   .game_scoreboard {
-    height: 50%;
+    height: clamp(50% , 55% , 100%);
     margin-top: 40%;
     font-size: 2vw;
   }
