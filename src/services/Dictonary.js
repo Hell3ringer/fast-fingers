@@ -17,8 +17,7 @@ const generateWord = (level) => {
     }
   });
   const word = dictonary[random(0, dictonary.length - 1)];
-  console.log("word", word);
-  console.log("level", level);
+
   return word.toUpperCase();
 };
 

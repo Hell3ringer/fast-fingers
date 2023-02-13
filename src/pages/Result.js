@@ -10,7 +10,7 @@ function Result(props) {
     if (score.score > highscore) highscore = score.score;
   });
 
-  function handleQuit() {
+  function handleQuitAndReset() {
     setName("");
     setLevel("");
     setScores([]);
@@ -42,7 +42,7 @@ function Result(props) {
           Play Again
         </button>
       </div>
-      <button className="game_btn" onClick={() => handleQuit()}>
+      <button className="game_btn" onClick={() => handleQuitAndReset()}>
         Quit
       </button>
     </div>

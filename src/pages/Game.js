@@ -1,15 +1,12 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect } from "react";
 import "../css/Game.css";
-import generateWord from "../services/Dictonary";
-import useEventhandler from "../services/EventHandler";
 import useGame from "../services/Game";
-import { useScore, useTimer } from "../services/Timer";
 
 
 function Game(props) {
   const { name, level, setLevel, setScreen, scores, setScores , initLevel } = props;
 
-  const {word, timer , score , wordStart , wordEnd } = useGame({level,setLevel,initLevel})
+  const {timer , score , wordStart , wordEnd } = useGame({level,setLevel,initLevel})
 
 
   useEffect(() => {
@@ -27,7 +24,7 @@ function Game(props) {
         score: score,
       },
     ]);
-    console.log('initLevel.current', initLevel.current)
+
     setScreen("result");
   };
 
@@ -72,8 +69,6 @@ function Game(props) {
             id="game_input"
             className="game_input"
             type="text"
-            // ref={textRef}
-            // onChange={handleTextChange}
             autoFocus={true}
             autoComplete="off"
             spellCheck="false"

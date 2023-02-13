@@ -1,4 +1,4 @@
-import React, { useEffect, useEffectEvent, useRef } from "react";
+import  { useEffect, useRef } from "react";
 
 function useEventhandler(eventname, handler, element = document.getElementById("game_input")) {
   const saveReference = useRef();
