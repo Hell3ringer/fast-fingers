@@ -5,7 +5,7 @@ import Login from "./Login";
 import Result from "./Result";
 
 function Dashboard() {
-  const [screen, setScreen] = useState("login");
+  const [screen, setScreen] = useState("");
   const [scores, setScores] = useState([]);
   const [name, setName] = useState("");
   const [level, setLevel] = useState("");
@@ -45,6 +45,7 @@ const initLevel = useRef("");
           setLevel={setLevel}
         ></Result>
       )}
+
     </div>
   );
 }
