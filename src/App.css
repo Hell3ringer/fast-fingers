@@ -1,22 +1,39 @@
 :root {
-  --bg-color1: #eaffd0;
-  --bg-color: white;
-  --text-color1: #60c689;
-  --text-color2: #f38181;
-  --text-color: #57acdc;
+  --bg-color-theme1: white;
+  --text-color-theme1: #57acdc;
+  --bg-color-theme2: #fffad7;
+  --text-color-theme2: #f38181;
+  /* --text-color-theme2: #60c689; */
   --text-fam: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
     "Lucida Sans", Arial, sans-serif;
 }
 
 .App {
   margin: 0 0 0 0;
-  background-color: var(--bg-color);
-  height: 100vh;
-  width: 100%;
+  font-family: var(--text-fam);
 }
 
-* {
-  color: var(--text-color);
-  background-color: var(--bg-color);
+.theme_btn {
+  width: 100vw;
+  margin: 0;
+  font-size: 1rem;
+}
+
+.theme1 * {
+  color: var(--text-color-theme1);
+  background-color: var(--bg-color-theme1);
   font-family: var(--text-fam);
+  border: var(--bg-color-theme1);
+}
+.theme1 *::placeholder {
+  color: var(--text-color-theme1);
+}
+.theme2 * {
+  color: var(--text-color-theme2);
+  background-color: var(--bg-color-theme2);
+  font-family: var(--text-fam);
+  border: var(--bg-color-theme2);
+}
+.theme2 *::placeholder {
+  color: var(--text-color-theme2);
 }

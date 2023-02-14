@@ -1,6 +1,6 @@
-import React, { useCallback, useState } from "react";
+import React, { useState } from "react";
 import "../css/Login.css";
-import useEventhandler from "../services/EventHandler";
+
 
 function Login(props) {
   const { level, setLevel, name, setName,initLevel } = props;
@@ -20,12 +20,7 @@ function Login(props) {
       props.setScreen("game");
     }
   }
-  // const handler = useCallback(() => {
-  //   console.log("focoused");
-  // });
 
-
-  // useEventhandler("key", handler);
 
   return (
     <div className="login">

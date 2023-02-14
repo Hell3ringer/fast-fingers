@@ -7,6 +7,7 @@
     
 }
 
+
 .login h1{
     padding-top: 5%;
 
@@ -32,7 +33,7 @@
     
 }
 .login-form input::placeholder{
-    color: var(--text-color);
+    /* color: var(--text-color); */
     opacity: 0.5;
 }
 .login-form select{
@@ -50,7 +51,7 @@
 }
 
 .play_btn{
-    background-color: var(--bg-color);
+    /* background-color: var(--bg-color); */
     border: 0;
     font-size: 2vw;
     cursor: pointer;

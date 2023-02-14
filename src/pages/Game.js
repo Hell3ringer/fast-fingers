@@ -2,15 +2,18 @@ import React, { useEffect } from "react";
 import "../css/Game.css";
 import useGame from "../services/Game";
 
-
 function Game(props) {
-  const { name, level, setLevel, setScreen, scores, setScores , initLevel } = props;
+  const { name, level, setLevel, setScreen, scores, setScores, initLevel } =
+    props;
 
-  const {timer , score , wordStart , wordEnd } = useGame({level,setLevel,initLevel})
+  const { timer, score, wordStart,wordEnd ,handleTextChange} = useGame({
+    level,
+    setLevel,
+    initLevel,
+  });
 
 
   useEffect(() => {
-
     if (!timer) {
       gameover();
     }
@@ -27,8 +30,6 @@ function Game(props) {
 
     setScreen("result");
   };
-
-
 
   return (
     <div className="game">
@@ -67,6 +68,7 @@ function Game(props) {
 
           <input
             id="game_input"
+            onChange={handleTextChange}
             className="game_input"
             type="text"
             autoFocus={true}

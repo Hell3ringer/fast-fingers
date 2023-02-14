@@ -1,7 +1,6 @@
-import { useEffect, useState, useRef, useCallback } from "react";
+import { useEffect, useCallback, useReducer, useRef } from "react";
 import { useScore, useTimer } from "./Timer";
 import generateWord from "./Dictonary";
-import useEventhandler from "./EventHandler";
 
 const initFactor = (level) => {
   let factor = 1;
@@ -23,22 +22,54 @@ const initFactor = (level) => {
 
   return factor;
 };
+
+const reducer = (state, action) => {
+  const { type, factor, word, wordStart, wordEnd } = action;
+
+  if (type === "factor") {
+    return {
+      ...state,
+      factor,
+    };
+  } else if (type === "word") {
+    return {
+      ...state,
+      word,
+    };
+  } else if (type === "wordStart") {
+    return {
+      ...state,
+      wordStart,
+    };
+  } else if (type === "wordEnd") {
+    return {
+      ...state,
+      wordEnd,
+    };
+  } else {
+    return {
+      error: "error in reducer",
+    };
+  }
+};
+
 export default function useGame({ setLevel, initLevel }) {
   const score = useScore();
-  const [factor, setFactor] = useState(0);
-  const [word, setWord] = useState();
-  const timer = useTimer({ word, factor });
-  const [wordStart, setWordStart] = useState("");
-  const [wordEnd, setWordEnd] = useState("");
+  const [state, dispatch] = useReducer(reducer, {});
+  const timer = useTimer({
+    word: state.word,
+    factor: state.factor,
+  });
+  const saveElement = useRef(null);
 
   let initFlag = true;
   useEffect(() => {
     if (initFlag) {
       initFlag = false;
-      setFactor(initFactor(initLevel.current));
+      dispatch({ type: "factor", factor: initFactor(initLevel.current) });
       const word = generateWord(initLevel.current);
-      setWord(word);
-      setWordEnd(word);
+      dispatch({ type: "word", word: word });
+      dispatch({ type: "wordEnd", wordEnd: word });
       setLevel(initLevel.current);
     }
   }, []);
@@ -55,49 +86,42 @@ export default function useGame({ setLevel, initLevel }) {
     if (event) {
       const inputText = event.target.value.toUpperCase();
       let startingWord, endingWord, index;
-      if (inputText.length < word.length) {
-        index = matchTwoWords(inputText, word);
+      if (inputText.length < state.word.length) {
+        index = matchTwoWords(inputText, state.word);
       } else {
-        index = matchTwoWords(word, inputText);
+        index = matchTwoWords(state.word, inputText);
       }
-      startingWord = word.substring(0, index + 1);
-      endingWord = word.substring(index + 1, word.length + 1);
-      setWordStart(startingWord);
-      setWordEnd(endingWord);
-      //   console.log("startingWord", startingWord);
-      //   console.log("endingWord", endingWord);
-      handleWordStartChange(startingWord, word);
+      startingWord = state.word.substring(0, index + 1);
+      endingWord = state.word.substring(index + 1, state.word.length + 1);
+      dispatch({ type: "wordStart", wordStart: startingWord });
+      dispatch({ type: "wordEnd", wordEnd: endingWord });
+      handleWordStartChange(startingWord, state.word);
     } else {
       console.log("no event");
     }
   });
-  useEventhandler("keyup", handleTextChange);
 
   const won = () => {
     console.log("won");
 
-    let newFactor = Math.round((factor + 0.1) * 100) / 100;
+    let newFactor = Math.round((state.factor + 0.1) * 100) / 100;
     let newLevel;
-    // change level
     if (newFactor >= 1 && newFactor < 1.5) {
-      //   setLevel((level) => "easy");
       newLevel = "easy";
     } else if (newFactor >= 1.5 && newFactor < 2) {
-      //   setLevel((level) => "medium");
       newLevel = "medium";
     } else {
-      //   setLevel((level) => "hard");
       newLevel = "hard";
     }
     const word = generateWord(newLevel);
-    setFactor(newFactor);
+    dispatch({ type: "factor", factor: newFactor });
     setLevel(newLevel);
-    setWord(word);
+    dispatch({ type: "word", word: word });
     document.getElementById("game_input").value = "";
-    setWordStart("");
-    setWordEnd(word);
 
-    //get timer
+    dispatch({ type: "wordStart", wordStart: "" });
+
+    dispatch({ type: "wordEnd", wordEnd: word });
   };
 
   const handleWordStartChange = (wordStart, word) => {
@@ -106,5 +130,11 @@ export default function useGame({ setLevel, initLevel }) {
     }
   };
 
-  return { score, word, timer, wordStart, wordEnd };
+  return {
+    score,
+    timer,
+    wordStart: state.wordStart,
+    wordEnd: state.wordEnd,
+    handleTextChange,
+  };
 }

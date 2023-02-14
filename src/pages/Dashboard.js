@@ -5,11 +5,12 @@ import Login from "./Login";
 import Result from "./Result";
 
 function Dashboard() {
-  const [screen, setScreen] = useState("");
+  const [screen, setScreen] = useState("login");
   const [scores, setScores] = useState([]);
   const [name, setName] = useState("");
   const [level, setLevel] = useState("");
-const initLevel = useRef("");
+  const initLevel = useRef("");
+  
   return (
     <div className="dashboard">
       {screen === "login" && (
@@ -45,7 +46,6 @@ const initLevel = useRef("");
           setLevel={setLevel}
         ></Result>
       )}
-
     </div>
   );
 }
